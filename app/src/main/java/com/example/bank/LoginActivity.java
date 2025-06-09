@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bank.utils.SecurityUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 
@@ -24,6 +25,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Kiểm tra và hiển thị cảnh báo accessibility ngay khi vào màn hình đăng nhập
+        SecurityUtils.checkAndShowAccessibilityWarning(this);
 
         // Khởi tạo các view
         usernameInput = findViewById(R.id.username_input);
@@ -47,6 +51,13 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Chức năng quên mật khẩu đang được phát triển", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Kiểm tra lại khi user quay về màn hình đăng nhập
+        SecurityUtils.checkAndShowAccessibilityWarning(this);
     }
 
     /**

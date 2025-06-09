@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bank.utils.SecurityUtils;
 import com.google.android.material.textfield.TextInputEditText;
 
 
@@ -28,8 +29,8 @@ public class TransferActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer);
 
-        // Khởi tạo AccessibilityController
-
+        // Kiểm tra và hiển thị cảnh báo accessibility ở màn hình chuyển tiền
+        SecurityUtils.checkAndShowAccessibilityWarning(this);
 
         // Khởi tạo các view
         recipientInput = findViewById(R.id.recipient_input);
@@ -63,6 +64,13 @@ public class TransferActivity extends AppCompatActivity {
                 Toast.makeText(TransferActivity.this, "Đã gửi lại mã OTP", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Kiểm tra lại khi user quay về màn hình chuyển tiền
+        SecurityUtils.checkAndShowAccessibilityWarning(this);
     }
 
     /**
@@ -149,6 +157,9 @@ public class TransferActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
     /**
      * Xử lý chuyển tiền
