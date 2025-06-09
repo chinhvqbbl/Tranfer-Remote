@@ -17,6 +17,14 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def versionCode = variant.versionCode
+            def newApkName = "bankdemo_${versionCode}.apk"
+            outputFileName = newApkName
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
